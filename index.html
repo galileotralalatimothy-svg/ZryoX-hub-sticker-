@@ -89,13 +89,43 @@ No Stickers Yet
 
 </header>
 
-<div class="grid" id="grid">
+<div class="grid" id="grid"></div>
 
-<div class="empty">
-No stickers sent yet
-</div>
+<script>
 
-</div>
+let stickers = [
+
+];
+
+let grid = document.getElementById("grid");
+
+if(stickers.length == 0){
+
+grid.innerHTML = "<div class='empty'>No stickers sent yet</div>";
+
+}else{
+
+stickers.forEach(function(url){
+
+let card = document.createElement("div");
+card.className = "card";
+
+let img = document.createElement("img");
+img.src = url;
+
+let btn = document.createElement("button");
+btn.innerText = "COPY";
+
+card.appendChild(img);
+card.appendChild(btn);
+
+grid.appendChild(card);
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
