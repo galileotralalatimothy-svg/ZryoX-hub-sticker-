@@ -93,17 +93,32 @@ No Stickers Yet
 
 <script>
 
-fetch("stickers.json")
-.then(res => res.json())
-.then(stickers => {
+let stickers = [];
 
 let grid = document.getElementById("grid");
+
+async function loadStickers(){
+
+let res = await fetch("/api/save");
+let data = await res.json();
+
+stickers = data.stickers || [];
+
+render();
+
+}
+
+function render(){
+
+grid.innerHTML = "";
 
 if(stickers.length == 0){
 
 grid.innerHTML = "<div class='empty'>No stickers sent yet</div>";
 
-}else{
+return;
+
+}
 
 stickers.forEach(function(url){
 
@@ -116,6 +131,10 @@ img.src = url;
 let btn = document.createElement("button");
 btn.innerText = "COPY";
 
+btn.onclick = function(){
+navigator.clipboard.writeText(url);
+};
+
 card.appendChild(img);
 card.appendChild(btn);
 
@@ -125,7 +144,7 @@ grid.appendChild(card);
 
 }
 
-});
+loadStickers();
 
 </script>
 
